@@ -1,1 +1,8 @@
-@use "~bootstrap/scss/bootstrap"; 
+@use "~bootstrap/scss/bootstrap";
+
+
+.favorite-true {
+  a {
+    color: #ff0000;
+  }
+}
