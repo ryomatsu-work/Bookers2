@@ -1,8 +1,15 @@
 @use "~bootstrap/scss/bootstrap";
 
 
-.favorite-true {
-  a {
-    color: #ff0000;
+.favorite-btn {
+  input[type="submit"] {
+    border: none;
+    background: none;
+  }
+
+  .favorite-true {
+    input[type="submit"] {
+      color: #ff0000;
+    }
   }
 }
