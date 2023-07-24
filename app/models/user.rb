@@ -14,6 +14,12 @@ class User < ApplicationRecord
   has_many :follower_users, through: :followers, source: :followed
   has_many :followed_users, through: :followeds, source: :follower
 
+  has_many :senders, class_name: 'DirectMessage', foreign_key: :sender_user_id, dependent: :destroy
+  has_many :receivers, class_name: 'DirectMessage', foreign_key: :receiver_user_id, dependent: :destroy
+
+  has_many :sender_users, through: :senders, source: :receiver
+  has_many :receiver_users, through: :receivers, source: :sender
+
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
@@ -22,6 +28,10 @@ class User < ApplicationRecord
 
   def follow?(user_id)
     followers.find_by(followed_id: user_id).present?
+  end
+
+  def followed_by?(user_id)
+    followeds.find_by(follower_id: user_id).present?
   end
 
   def get_profile_image

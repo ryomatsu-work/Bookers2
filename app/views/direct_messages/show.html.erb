@@ -1,0 +1,41 @@
+
+<div class="direct-message container-fluid">
+  <h2>Chat with <%= @user.name %></h2>
+
+  <div class="direct-message-list">
+    <% @direct_messages.each do |dm| %>
+      <div class="media message">
+        <%= image_tag dm.sender_user.get_profile_image, size: '50x50', class: 'mr-3' %>
+        <div class="media-body">
+          <div class="mt-0 user-name"><%= dm.sender_user.name %>:</div>
+          <div class="message"><%= dm.message %></div>
+          <p class="datetime"><%= dm.created_at %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="direct-message-form my-3">
+    <% if @direct_message.errors.any? %>
+      <ul class="alert alert-danger" role="alert">
+        <h6 class="alert-heading">
+          <%= @direct_message.errors.count %> errors
+        </h6>
+        <% @direct_message.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= form_with model: @direct_message, url:user_direct_messages_path, method: :post, local:true do |f| %>
+      <div class="form-group">
+        <%= f.label :messaage %>
+        <%= f.text_area :message, class: 'form-control direct_message_comment' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

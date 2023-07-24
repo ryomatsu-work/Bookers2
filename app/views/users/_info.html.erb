@@ -26,6 +26,9 @@
   <% else %>
     <% if current_user.follow?(user.id) %>
       <%= link_to 'Remove follow', user_relationships_path(user), method: :delete, class: "btn btn-outline-danger btn-block" %>
+      <% if current_user.followed_by?(user.id) %>
+        <%= link_to 'DM', user_direct_messages_path(user), method: :get, class: "btn btn-outline-info btn-block" %>
+      <% end %>
     <% else %>
       <%= link_to 'Follow', user_relationships_path(user), method: :post, class: "btn btn-outline-primary btn-block" %>
     <% end %>

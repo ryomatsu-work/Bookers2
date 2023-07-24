@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get 'followers' => 'users#followers'
     get 'followeds' => 'users#followeds'
     resource :relationships, only: [:create, :destroy]
+    resource :direct_messages, only: [:index, :show, :create, :destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
