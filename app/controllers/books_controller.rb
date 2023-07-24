@@ -9,7 +9,8 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = Book.all
+    favorite_count_sql = Favorite.select('count(*)').where('book_id = books.id and created_at > ?', 1.week.ago).to_sql
+    @books = Book.all.select("*, (#{favorite_count_sql}) as favorite_count").order('favorite_count desc')
   end
 
   def create
