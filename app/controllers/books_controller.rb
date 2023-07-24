@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :register_page_view, only: [:show]
 
   def show
     @book_new = Book.new
@@ -54,5 +55,12 @@ class BooksController < ApplicationController
     unless @book.user_id == current_user.id
       redirect_to books_path
     end
+  end
+
+  def register_page_view
+    pv = PageView.new
+    pv.path = request.fullpath
+    pv.book_id = params[:id]
+    pv.save!
   end
 end

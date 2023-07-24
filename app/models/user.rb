@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :sender_users, through: :senders, source: :receiver
   has_many :receiver_users, through: :receivers, source: :sender
 
+  has_many :page_views
+
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
