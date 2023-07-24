@@ -1,4 +1,4 @@
-<div class="favorite-btn">
+<div id="favorite-book-id-<%= book.id %>" class="favorite-btn">
   <%
   if book.favorited_by?(current_user)
     method = :delete
