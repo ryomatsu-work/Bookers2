@@ -1,0 +1,51 @@
+%body
+  %header
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      .container
+        %a.navbar-brand{:href => "/"}
+          %span Bookers
+        %button.navbar-toggler{"aria-controls" => "navbarNavDropdown", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNavDropdown", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #navbarNavDropdown.collapse.navbar-collapse
+          %ul.navbar-nav.ml-auto
+            - if user_signed_in?
+              %li
+                = link_to user_path(current_user),class: 'nav-link text-light' do
+                  %i.fas.fa-home
+                  Home
+              %li
+                = link_to users_path,class: 'nav-link text-light' do
+                  %i.fas.fa-users
+                  Users
+              %li
+                = link_to books_path ,class: 'nav-link text-light' do
+                  %i.fas.fa-book-open
+                  Books
+              %li
+                = link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do
+                  %i.fas.fa-sign-out-alt
+                  Log out
+            - else
+              %li
+                = link_to root_path,class: 'nav-link text-light' do
+                  %i.fas.fa-home
+                  Home
+              %li
+                = link_to home_about_path,class: 'nav-link text-light' do
+                  %i.fas.fa-link
+                  About
+              %li
+                = link_to new_user_registration_path,class: 'nav-link text-light' do
+                  %i.fas.fa-user-plus
+                  Sign up
+              %li
+                = link_to new_user_session_path ,class: 'nav-link text-light' do
+                  %i.fas.fa-sign-in-alt
+                  Log in
+    .container.search-form.my-3
+      - if user_signed_in?
+        = form_with url:search_path, method: :get, class: 'form-inline' do |form|
+          = form.text_field :word, value: params[:word], class: 'form-control mr-2'
+          = form.select :target, [['Book', 'book'], ['User', 'user']], { include_blank: false, selected: params[:target] }, class: 'form-control mr-2'
+          = form.select :option, [['完全一致', 1], ['前方一致', 2], ['後方一致', 3], ['部分一致', 4]], { include_blank: false, selected: params[:option] }, class: 'form-control mr-2'
+          = form.submit 'search', class: 'btn btn-primary'

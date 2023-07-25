@@ -1,0 +1,16 @@
+- if book.errors.any?
+  %ul.alert.alert-danger{:role => "alert"}
+    %h6.alert-heading
+      = book.errors.count
+      errors
+    - book.errors.full_messages.each do |message|
+      %li= message
+= form_with model:book,local:true do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control book_title'
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control book_body'
+  .form-group
+    = f.submit class: 'btn btn-success'

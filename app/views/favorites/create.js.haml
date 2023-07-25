@@ -1,0 +1,1 @@
+$("#favorite-book-id-#{@book.id}.favorite-btn").parent().html("#{escape_javascript(render partial: 'favorites/favorite-btn', locals: {book: @book})}");

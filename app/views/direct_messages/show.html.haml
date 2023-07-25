@@ -1,0 +1,27 @@
+.direct-message.container-fluid
+  %h2
+    Chat with #{@user.name}
+  .direct-message-list
+    - @direct_messages.each do |dm|
+      .media.message
+        = image_tag dm.sender_user.get_profile_image, size: '50x50', class: 'mr-3'
+        .media-body
+          .mt-0.user-name
+            = dm.sender_user.name
+            \:
+          .message= dm.message
+          %p.datetime= dm.created_at
+  .direct-message-form.my-3
+    - if @direct_message.errors.any?
+      %ul.alert.alert-danger{:role => "alert"}
+        %h6.alert-heading
+          = @direct_message.errors.count
+          errors
+        - @direct_message.errors.full_messages.each do |message|
+          %li= message
+    = form_with model: @direct_message, url:user_direct_messages_path, method: :post, local:true do |f|
+      .form-group
+        = f.label :messaage
+        = f.text_area :message, class: 'form-control direct_message_comment'
+      .form-group
+        = f.submit class: 'btn btn-success'

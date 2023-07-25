@@ -1,8 +1,0 @@
-
-<% if params[:target] == 'book' %>
-  <h2>Books search for <%= params[:word]%></h2>
-  <%= render 'books/index', books: @books %>
-<% elsif params[:target] == 'user' %>
-  <h2>Users search for <%= params[:word]%></h2>
-  <%= render 'users/index', users: @users %>
-<% end %>

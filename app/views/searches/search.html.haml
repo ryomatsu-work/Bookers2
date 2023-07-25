@@ -1,0 +1,8 @@
+- if params[:target] == 'book'
+  %h2
+    Books search for #{params[:word]}
+  = render 'books/index', books: @books
+- elsif params[:target] == 'user'
+  %h2
+    Users search for #{params[:word]}
+  = render 'users/index', users: @users
