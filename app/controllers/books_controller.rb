@@ -10,8 +10,8 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    favorite_count_sql = Favorite.select('count(*)').where('book_id = books.id and created_at > ?', 1.week.ago).to_sql
-    @books = Book.all.select("*, (#{favorite_count_sql}) as favorite_count").order('favorite_count desc')
+    favorite_count_sql = Favorite.select("count(*)").where("book_id = books.id and created_at > ?", 1.week.ago).to_sql
+    @books = Book.all.select("*, (#{favorite_count_sql}) as favorite_count").order("favorite_count desc")
   end
 
   def create
@@ -21,7 +21,7 @@ class BooksController < ApplicationController
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
       @books = Book.all
-      render 'index'
+      render "index"
     end
   end
 
@@ -45,22 +45,21 @@ class BooksController < ApplicationController
   end
 
   private
-
-  def book_params
-    params.require(:book).permit(:title, :body)
-  end
-
-  def ensure_correct_user
-    @book = Book.find(params[:id])
-    unless @book.user_id == current_user.id
-      redirect_to books_path
+    def book_params
+      params.require(:book).permit(:title, :body)
     end
-  end
 
-  def register_page_view
-    pv = PageView.new
-    pv.path = request.fullpath
-    pv.book_id = params[:id]
-    pv.save!
-  end
+    def ensure_correct_user
+      @book = Book.find(params[:id])
+      unless @book.user_id == current_user.id
+        redirect_to books_path
+      end
+    end
+
+    def register_page_view
+      pv = PageView.new
+      pv.path = request.fullpath
+      pv.book_id = params[:id]
+      pv.save!
+    end
 end

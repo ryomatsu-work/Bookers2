@@ -8,14 +8,14 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  has_many :followers, class_name: 'Relationship', foreign_key: :follower_id, dependent: :destroy
-  has_many :followeds, class_name: 'Relationship', foreign_key: :followed_id, dependent: :destroy
+  has_many :followers, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
+  has_many :followeds, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
 
   has_many :follower_users, through: :followers, source: :followed
   has_many :followed_users, through: :followeds, source: :follower
 
-  has_many :senders, class_name: 'DirectMessage', foreign_key: :sender_user_id, dependent: :destroy
-  has_many :receivers, class_name: 'DirectMessage', foreign_key: :receiver_user_id, dependent: :destroy
+  has_many :senders, class_name: "DirectMessage", foreign_key: :sender_user_id, dependent: :destroy
+  has_many :receivers, class_name: "DirectMessage", foreign_key: :receiver_user_id, dependent: :destroy
 
   has_many :sender_users, through: :senders, source: :receiver
   has_many :receiver_users, through: :receivers, source: :sender
@@ -37,13 +37,13 @@ class User < ApplicationRecord
   end
 
   def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+    (profile_image.attached?) ? profile_image : "no_image.jpg"
   end
 
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
-    p 'self.guest'
+    p "self.guest"
     find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
@@ -53,5 +53,4 @@ class User < ApplicationRecord
   def guest_user?
     email == GUEST_USER_EMAIL
   end
-
 end

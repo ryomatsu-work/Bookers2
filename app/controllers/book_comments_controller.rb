@@ -17,15 +17,14 @@ class BookCommentsController < ApplicationController
   end
 
   private
-
-  def book_comment_params
-    params.require(:book_comment).permit(:comment)
-  end
-
-  def ensure_correct_user
-    @book_comment = BookComment.find(params[:id])
-    unless @book_comment.user_id == current_user.id
-      redirect_to request.referer
+    def book_comment_params
+      params.require(:book_comment).permit(:comment)
     end
-  end
+
+    def ensure_correct_user
+      @book_comment = BookComment.find(params[:id])
+      unless @book_comment.user_id == current_user.id
+        redirect_to request.referer
+      end
+    end
 end

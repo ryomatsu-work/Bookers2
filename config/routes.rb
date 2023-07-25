@@ -7,18 +7,18 @@ Rails.application.routes.draw do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
   end
 
-  root :to =>"homes#top"
-  get "home/about"=>"homes#about"
+  root to: "homes#top"
+  get "home/about" => "homes#about"
 
-  get "search" => 'searches#search', as: :search
+  get "search" => "searches#search", as: :search
 
-  resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
+  resources :books, only: [:index, :show, :edit, :create, :destroy, :update] do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
-  resources :users, only: [:index,:show,:edit,:update] do
-    get 'followers' => 'users#followers'
-    get 'followeds' => 'users#followeds'
+  resources :users, only: [:index, :show, :edit, :update] do
+    get "followers" => "users#followers"
+    get "followeds" => "users#followeds"
     resource :relationships, only: [:create, :destroy]
     resource :direct_messages, only: [:index, :show, :create, :destroy]
   end
