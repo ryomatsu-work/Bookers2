@@ -13,7 +13,7 @@
     %th followers
     %th= link_to user.followeds.count, user_followeds_path(user)
 .row
-  - if current_user == user
+  - if current_user == user and !user.guest_user?
     = link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do
       %i.fas.fa-user-cog
   - else
