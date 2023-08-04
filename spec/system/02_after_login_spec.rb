@@ -183,9 +183,9 @@ describe "[STEP2] ユーザログイン後のテスト" do
     context "削除リンクのテスト" do
       it "application.html.erbにjavascript_pack_tagを含んでいる" do
         is_exist = 0
-        open("app/views/layouts/application.html.erb").each do |line|
+        open("app/views/layouts/application.html.haml").each do |line|
           strip_line = line.chomp.delete(" ")
-          if strip_line.include?("<%=javascript_pack_tag'application','data-turbolinks-track':'reload'%>")
+          if strip_line.include?("javascript_pack_tag'application','data-turbolinks-track':'reload'")
             is_exist = 1
             break
           end

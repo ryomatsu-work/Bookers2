@@ -17,6 +17,8 @@
     = link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do
       %i.fas.fa-user-cog
   - else
+    = link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do
+      %i.fas.fa-user-cog
     - if current_user.follow?(user.id)
       = link_to 'Remove follow', user_relationships_path(user), method: :delete, class: "btn btn-outline-danger btn-block"
       - if current_user.followed_by?(user.id)
