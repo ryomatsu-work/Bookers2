@@ -13,4 +13,10 @@
     = f.label :body
     = f.text_area :body, class: 'form-control book_body'
   .form-group
+    = f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag|
+      .form-check
+        = tag.label class:'form-check-label' do
+          = tag.check_box class: 'form-check-input'
+          = tag.text
+  .form-group
     = f.submit class: 'btn btn-success'

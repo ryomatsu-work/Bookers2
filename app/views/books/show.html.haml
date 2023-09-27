@@ -18,6 +18,9 @@
           %td= @book.body
           %td= render 'favorites/favorite-btn', book: @book
           %td
+            - @book.tags.each do |tag|
+              %span= tag.name
+          %td
             comments:#{@book.book_comments.count}
           %td
             views: #{@book.page_views.count}
