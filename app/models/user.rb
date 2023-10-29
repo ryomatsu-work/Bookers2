@@ -11,8 +11,8 @@ class User < ApplicationRecord
   has_many :followers, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
   has_many :followeds, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
 
-  has_many :follower_users, through: :followers, source: :followed
-  has_many :followed_users, through: :followeds, source: :follower
+  has_many :following_users, through: :followers, source: :followed
+  has_many :follower_users, through: :followeds, source: :follower
 
   has_many :senders, class_name: "DirectMessage", foreign_key: :sender_user_id, dependent: :destroy
   has_many :receivers, class_name: "DirectMessage", foreign_key: :receiver_user_id, dependent: :destroy
@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_many :receiver_users, through: :receivers, source: :sender
 
   has_many :page_views
+
+  has_many :notifications, dependent: :destroy
 
   has_one_attached :profile_image
 

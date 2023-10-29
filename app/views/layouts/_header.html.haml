@@ -21,6 +21,17 @@
                 = link_to books_path ,class: 'nav-link text-light' do
                   %i.fas.fa-book-open
                   Books
+              %li.dropdown
+                %button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{type: 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false'}
+                  Notification
+                  %span.badge.badge-danger= current_user.notifications.where(read: false).count
+                %div.dropdown-menu{'area-labelledby' => 'dropdownMenuButton'}
+                  - if current_user.notifications.where(read: false).any?
+                    %small.dropdown-item.disabled display up to 5 recent notifications
+                    - current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification|
+                      = link_to notification.message, notification, method: :patch, class: "dropdown-item"
+                  - else
+                    %span.dropdown-item.disabled no unread notifications
               %li
                 = link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do
                   %i.fas.fa-sign-out-alt

@@ -17,10 +17,12 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
   end
   resources :users, only: [:index, :show, :edit, :update] do
+    get "followings" => "users#followings"
     get "followers" => "users#followers"
-    get "followeds" => "users#followeds"
     resource :relationships, only: [:create, :destroy]
     resource :direct_messages, only: [:index, :show, :create, :destroy]
   end
+
+  resources :notifications, only: [:update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
