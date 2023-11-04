@@ -69,3 +69,6 @@ gem "devise"
 
 gem "haml-rails"
 gem "html2haml"
+
+gem 'dotenv-rails'
+gem 'geocoder'

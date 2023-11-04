@@ -29,6 +29,10 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
 
+  validates :address, presence: true
+  geocoded_by :address
+  after_validation :geocode
+
 
   def follow?(user_id)
     followers.find_by(followed_id: user_id).present?
@@ -39,6 +43,9 @@ class User < ApplicationRecord
   end
 
   def get_profile_image
+    p 'get_profile_image'
+    p profile_image.attached?
+    p profile_image
     (profile_image.attached?) ? profile_image : "no_image.jpg"
   end
 

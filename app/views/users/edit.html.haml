@@ -21,4 +21,11 @@
           = f.label :introduction
           = f.text_area :introduction, class: "form-control introduction"
         .form-group
+          = f.label :address
+          = text_field_tag :zipcode, nil, class: "form-control", placeholder: "Zip Code"
+        .form-group
+          = f.text_field :address, class: "form-control", placeholder: "Address"
+        .form-group
           = f.submit class: 'btn btn-secondary'
+
+= javascript_pack_tag "jpostal", 'data-turbolinks-track': 'reload'

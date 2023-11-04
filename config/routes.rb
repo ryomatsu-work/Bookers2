@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'maps/show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for :users
@@ -24,5 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: [:update]
+  resource :map, only: [:show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
